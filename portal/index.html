@@ -8,15 +8,10 @@
 <style>
   :root{
     --navy:#0F1E4F; --orange:#FF4400;
-    --bg:#f2f4f8; --line:#cdd2de; --label:#5a606e; --val:#1d2332;
-    --card:#ffffff;
+    --bg:#f2f4f8; --line:#cdd2de; --label:#5a606e; --val:#1d2332; --card:#ffffff;
   }
   *{box-sizing:border-box}
-  body{
-    margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--val);
-    background:var(--bg);
-  }
-  /* ---- Cabeçalho ---- */
+  body{margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--val); background:var(--bg);}
   header{background:var(--navy); color:#fff; padding:26px 20px 30px;}
   .header-inner{max-width:920px; margin:0 auto; display:flex;
     align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
@@ -25,13 +20,22 @@
   .htitle h1{margin:0; font-size:22px; font-weight:bold; letter-spacing:.5px;}
   .htitle .unidade{color:#ff9678; font-size:14px; margin-top:4px;}
   .bar{height:3px; background:var(--orange);}
-  main{max-width:920px; margin:0 auto; padding:24px 16px 60px;}
-  .subtitulo{color:var(--label); font-size:14px; margin:6px 2px 22px;}
+  main{max-width:920px; margin:0 auto; padding:22px 16px 60px;}
+  .subtitulo{color:var(--label); font-size:14px; margin:4px 2px 16px;}
 
-  /* ---- Seção ---- */
-  .section{background:var(--card); border:1px solid var(--line);
-    border-radius:10px; overflow:hidden; margin-bottom:22px;
-    box-shadow:0 1px 3px rgba(15,30,79,.05);}
+  /* seletor de empresa */
+  .selector{display:flex; align-items:center; gap:10px; margin:0 2px 20px; flex-wrap:wrap;}
+  .selector label{font-size:13px; font-weight:bold; color:var(--navy);}
+  .selector select{font-size:15px; padding:9px 12px; border:1px solid var(--line);
+    border-radius:8px; background:#fff; color:var(--navy); font-weight:bold;
+    min-width:240px; cursor:pointer;}
+  .nota{background:#fff7ed; border:1px solid #ffd9bf; color:#8a4b1f;
+    border-radius:8px; padding:10px 12px; font-size:12.5px; margin:0 2px 18px;
+    display:flex; gap:8px; align-items:flex-start;}
+  .nota::before{content:"⚠"; color:var(--orange); font-weight:bold;}
+
+  .section{background:var(--card); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; margin-bottom:22px; box-shadow:0 1px 3px rgba(15,30,79,.05);}
   .section-head{background:var(--navy); color:#fff; display:flex;
     align-items:center; justify-content:space-between; padding:11px 16px;}
   .section-head .stitle{display:flex; align-items:center; gap:10px;
@@ -39,13 +43,11 @@
   .section-head .stitle::before{content:""; width:4px; height:16px;
     background:var(--orange); border-radius:2px; display:inline-block;}
   .copy-all{background:transparent; border:1px solid rgba(255,255,255,.5);
-    color:#fff; font-size:12px; padding:5px 11px; border-radius:6px;
-    cursor:pointer; transition:.15s;}
+    color:#fff; font-size:12px; padding:5px 11px; border-radius:6px; cursor:pointer; transition:.15s;}
   .copy-all:hover{background:var(--orange); border-color:var(--orange);}
-  .subgroup{padding:6px 16px 0; color:var(--orange); font-weight:bold;
-    font-size:13px; margin-top:8px;}
+  .subgroup{padding:6px 16px 0; color:var(--orange); font-weight:bold; font-size:13px; margin-top:8px;}
+  .empty-note{padding:14px 16px 18px; color:var(--label); font-size:13px; font-style:italic;}
 
-  /* ---- Campos ---- */
   .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:14px 16px 18px;}
   .field{grid-column:span 1; background:var(--bg); border:1px solid var(--line);
     border-radius:8px; padding:8px 10px; display:flex; align-items:center;
@@ -54,28 +56,24 @@
   .field .fl{min-width:0;}
   .field .label{font-size:10px; font-weight:bold; color:var(--navy);
     text-transform:uppercase; letter-spacing:.4px;}
-  .field .value{font-size:15px; color:var(--val); margin-top:2px;
-    word-break:break-word; line-height:1.3;}
+  .field .value{font-size:15px; color:var(--val); margin-top:2px; word-break:break-word; line-height:1.3;}
   .field .value.empty{color:#aab; font-style:italic;}
-  .copy-btn{flex:none; border:1px solid var(--line); background:#fff;
-    color:var(--navy); border-radius:6px; cursor:pointer; padding:6px 9px;
-    font-size:12px; display:inline-flex; align-items:center; gap:5px;
-    transition:.15s;}
+  .copy-btn{flex:none; border:1px solid var(--line); background:#fff; color:var(--navy);
+    border-radius:6px; cursor:pointer; padding:6px 9px; font-size:12px;
+    display:inline-flex; align-items:center; gap:5px; transition:.15s;}
   .copy-btn:hover{background:var(--navy); color:#fff; border-color:var(--navy);}
   .copy-btn.ok{background:#1a9d4e; color:#fff; border-color:#1a9d4e;}
   .copy-btn[disabled]{opacity:.35; cursor:not-allowed;}
   .copy-btn svg{width:13px; height:13px;}
 
-  /* ---- Rodapé ---- */
   footer{border-top:1px solid var(--line); margin-top:10px; padding-top:18px;
     text-align:center; color:var(--label); font-size:12px;}
-  footer .brands{display:flex; gap:22px; justify-content:center;
-    align-items:center; flex-wrap:wrap; margin-bottom:12px;}
+  footer .brands{display:flex; gap:22px; justify-content:center; align-items:center;
+    flex-wrap:wrap; margin-bottom:12px;}
   footer .brands img{height:26px; width:auto; opacity:.85;}
   .toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:var(--navy); color:#fff; padding:11px 20px; border-radius:8px;
-    font-size:13px; opacity:0; pointer-events:none; transition:.25s;
-    box-shadow:0 6px 18px rgba(15,30,79,.3);}
+    background:var(--navy); color:#fff; padding:11px 20px; border-radius:8px; font-size:13px;
+    opacity:0; pointer-events:none; transition:.25s; box-shadow:0 6px 18px rgba(15,30,79,.3);}
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 
   @media (max-width:620px){
@@ -100,6 +98,13 @@
 
 <main>
   <div class="subtitulo" id="subtitulo"></div>
+
+  <div class="selector">
+    <label for="empresa-sel">Empresa:</label>
+    <select id="empresa-sel"></select>
+  </div>
+
+  <div id="nota"></div>
   <div id="app"></div>
 
   <footer>
@@ -118,97 +123,115 @@
 <script src="dados-empresa.js"></script>
 <script>
 (function(){
-  const D = window.DADOS_EMPRESA || {};
+  const D = window.DADOS || {};
+  const EMPRESAS = D.EMPRESAS || [];
   const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-  document.getElementById('unidade').textContent = D.unidade ? ('Unidade: ' + D.unidade) : '';
   document.getElementById('subtitulo').textContent = D.subtitulo || '';
-  document.title = 'Dados Cadastrais — ' + (D.unidade || 'One Group');
 
-  // gera um campo
+  // seletor
+  const sel = document.getElementById('empresa-sel');
+  EMPRESAS.forEach((e, i) => {
+    const o = document.createElement('option');
+    o.value = String(i); o.textContent = e.label || ('Empresa ' + (i+1));
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', () => render(EMPRESAS[+sel.value]));
+
   function field(label, value, full){
     const has = value !== undefined && value !== null && String(value).trim() !== '';
     const v = has ? esc(value) : '—';
     return `<div class="field${full?' full':''}">
-      <div class="fl">
-        <div class="label">${esc(label)}</div>
-        <div class="value${has?'':' empty'}">${v}</div>
-      </div>
+      <div class="fl"><div class="label">${esc(label)}</div>
+        <div class="value${has?'':' empty'}">${v}</div></div>
       <button class="copy-btn" ${has?`data-copy="${esc(value)}"`:'disabled'} title="Copiar">${ICON}</button>
     </div>`;
   }
 
-  // monta uma seção a partir de uma lista de [label, value, full?]
   function section(title, rows, subgroup){
-    const grid = rows.map(r => field(r[0], r[1], r[2])).join('');
-    const lines = rows.filter(r => r[1] && String(r[1]).trim() !== '')
-                      .map(r => `${r[0]}: ${r[1]}`).join('\n');
+    const filled = rows.filter(r => r[1] && String(r[1]).trim() !== '');
+    const lines = filled.map(r => `${r[0]}: ${r[1]}`).join('\n');
+    const body = rows.length
+      ? `<div class="grid">${rows.map(r => field(r[0], r[1], r[2])).join('')}</div>`
+      : `<div class="empty-note">Sem dados cadastrados ainda.</div>`;
     return `<div class="section">
-      <div class="section-head">
-        <span class="stitle">${esc(title)}</span>
-        <button class="copy-all" data-copy="${esc(lines)}" title="Copiar a seção inteira">Copiar tudo</button>
-      </div>
+      <div class="section-head"><span class="stitle">${esc(title)}</span>
+        ${filled.length ? `<button class="copy-all" data-copy="${esc(lines)}" title="Copiar a seção inteira">Copiar tudo</button>` : ''}</div>
       ${subgroup ? `<div class="subgroup">${esc(subgroup)}</div>` : ''}
-      <div class="grid">${grid}</div>
+      ${body}
     </div>`;
   }
 
-  const e = D.empresa || {};
-  let html = section('Dados Empresariais', [
-    ['Razão Social', e.nome_empresarial],
-    ['Nome Fantasia', e.nome_fantasia],
-    ['CNPJ', e.cnpj],
-    ['Inscrição Estadual', e.ie],
-    ['Inscrição Municipal', e.im],
-    ['Natureza Jurídica', e.natureza],
-    ['Capital Social (R$)', e.capital],
-    ['Situação Cadastral', e.situacao],
-    ['CNAE Principal', e.cnae_principal, true],
-    ['CNAE Secundários', e.cnae_sec, true],
-    ['Endereço', e.endereco, true],
-    ['Bairro', e.bairro],
-    ['Município', e.municipio],
-    ['UF', e.uf],
-    ['CEP', e.cep],
-    ['Telefone', e.telefone],
-    ['E-mail', e.email],
-    ['Site', e.site],
-  ]);
+  function render(C){
+    if(!C){ document.getElementById('app').innerHTML = ''; return; }
+    document.getElementById('unidade').textContent = 'Empresa: ' + (C.label || '');
+    document.title = 'Dados Cadastrais — ' + (C.label || 'One Group');
+    document.getElementById('nota').innerHTML = C.nota
+      ? `<div class="nota">${esc(C.nota)}</div>` : '';
 
-  (D.socios || []).forEach((s, i) => {
-    html += section('Quadro Societário', [
-      ['Nome Completo', s.nome, true],
-      ['CPF', s.cpf],
-      ['Data de Nascimento', s.nascimento],
-      ['Estado Civil', s.estado_civil],
-      ['Participação (%)', s.participacao],
-      ['Endereço', s.endereco, true],
-      ['Bairro', s.bairro],
-      ['Município', s.municipio],
-      ['UF', s.uf],
-      ['CEP', s.cep],
-      ['Telefone', s.telefone],
-      ['E-mail', s.email],
-    ], (D.socios.length > 1 ? `Sócio ${i+1}` : null));
-  });
+    const e = C.empresa || {};
+    let html = section('Dados Empresariais', [
+      ['Razão Social', e.nome_empresarial],
+      ['Nome Fantasia', e.nome_fantasia],
+      ['CNPJ', e.cnpj],
+      ['Inscrição Estadual', e.ie],
+      ['Inscrição Municipal', e.im],
+      ['Natureza Jurídica', e.natureza, true],
+      ['Capital Social (R$)', e.capital],
+      ['Situação Cadastral', e.situacao],
+      ['Data da Situação', e.data_situacao],
+      ['CNAE Principal', e.cnae_principal, true],
+      ['CNAE Secundários', e.cnae_sec, true],
+      ['Endereço', e.endereco, true],
+      ['Bairro', e.bairro],
+      ['Município', e.municipio],
+      ['UF', e.uf],
+      ['CEP', e.cep],
+      ['Telefone', e.telefone],
+      ['E-mail', e.email],
+      ['Site', e.site],
+    ]);
 
-  (D.bancos || []).forEach((b, i) => {
-    html += section('Dados Bancários', [
-      ['Banco', b.banco],
-      ['Código', b.codigo],
-      ['Tipo de Conta', b.tipo],
-      ['Agência', b.agencia],
-      ['Conta', b.conta],
-      ['Chave PIX', b.pix, true],
-      ['Titular', b.titular, true],
-      ['CNPJ do Titular', b.cnpj],
-    ], (D.bancos.length > 1 ? `Conta ${i+1}` : null));
-  });
+    (C.socios || []).forEach((s, i) => {
+      html += section('Quadro Societário', [
+        ['Nome Completo', s.nome, true],
+        ['CPF', s.cpf],
+        ['Data de Nascimento', s.nascimento],
+        ['Estado Civil', s.estado_civil],
+        ['Participação', s.participacao],
+        ['Endereço', s.endereco, true],
+        ['Município', s.municipio],
+        ['UF', s.uf],
+        ['CEP', s.cep],
+        ['Telefone', s.telefone],
+        ['E-mail', s.email],
+      ], (C.socios.length > 1 ? `Sócio ${i+1}` : null));
+    });
+    if(!(C.socios || []).length){
+      html += section('Quadro Societário', [], null);
+    }
 
-  document.getElementById('app').innerHTML = html;
+    (C.bancos || []).forEach((b, i) => {
+      html += section('Dados Bancários', [
+        ['Banco', b.banco],
+        ['Código', b.codigo],
+        ['Tipo de Conta', b.tipo],
+        ['Agência', b.agencia],
+        ['Conta', b.conta],
+        ['Chave PIX', b.pix, true],
+        ['Titular', b.titular, true],
+        ['CNPJ do Titular', b.cnpj],
+      ], (C.bancos.length > 1 ? `Conta ${i+1}` : null));
+    });
+    if(!(C.bancos || []).length){
+      html += section('Dados Bancários', [], null);
+    }
 
-  // ---- copiar ----
+    document.getElementById('app').innerHTML = html;
+  }
+
+  // copiar
   const toast = document.getElementById('toast');
   let toastT;
   function showToast(msg){
@@ -228,13 +251,13 @@
     if(!btn) return;
     copy(btn.getAttribute('data-copy'));
     if(btn.classList.contains('copy-btn')){
-      btn.classList.add('ok');
-      setTimeout(() => btn.classList.remove('ok'), 900);
+      btn.classList.add('ok'); setTimeout(() => btn.classList.remove('ok'), 900);
       showToast('Campo copiado!');
-    } else {
-      showToast('Seção copiada!');
-    }
+    } else { showToast('Seção copiada!'); }
   });
+
+  // inicial
+  if(EMPRESAS.length){ sel.value = '0'; render(EMPRESAS[0]); }
 })();
 </script>
 </body>
